@@ -18,10 +18,10 @@ public class Constants {
   public static final String HTTP_STATUS_CODE_420_MESSAGE_DELETE = "Delete failed. Please contact your Support-Team.";
 
   //LOG Messages
-  public static final String LOG_MESSAGE_START = "START %s , %s ";
-  public static final String LOG_MESSAGE_END = "END %s , %s ";
+  public static final String LOG_MESSAGE_START = "START: {} - {}";
+  public static final String LOG_MESSAGE_END = "END : {} - {}";
 
-  public static final String LOG_MESSAGE = "Operation result: %s";
+  public static final String LOG_MESSAGE = "Operation result: {}";
 
   public static final String EMAIL = "EMAIL";
 
@@ -29,6 +29,7 @@ public class Constants {
 
   public static final String PATHVARIABLE_EMAIL_ID = "{" + EMAIL_ID + "}";
 
+  public static final String SPAM_EMAIL = "carl@gbtec.com";
 
   // API Endpoints
   public static final String API_REQUESTMAPPING_PATH = "api/v1/emails";

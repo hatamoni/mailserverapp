@@ -7,10 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.hixdev.mailserverapp.data.TestData;
 import de.hixdev.mailserverapp.dto.EmailDto;
-import de.hixdev.mailserverapp.dto.EmailRecipientDto;
 import de.hixdev.mailserverapp.dto.EmailsDto;
-import de.hixdev.mailserverapp.entity.State;
 import de.hixdev.mailserverapp.service.EmailService;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,26 +42,11 @@ class EmailControllerTest {
 
   @BeforeEach
   public void setup() {
-    List<EmailRecipientDto> emailsTo = new ArrayList<EmailRecipientDto>();
-    emailsTo.add(new EmailRecipientDto("jack.river@hixdev.de"));
-    List<EmailRecipientDto> emailsCc = new ArrayList<EmailRecipientDto>();
-    emailsTo.add(new EmailRecipientDto("eric.lars@hixdev.de"));
-
-    emailDto = EmailDto.builder()
-        .emailBody("Hello")
-        .emailFrom("hix@hixdev.de")
-        .emailTo(emailsTo)
-        .emailCc(emailsCc)
-        .state(State.EMAIL_DRAFT.getCode())
-        .createdBy("HIX")
-        .createdDate(null)
-        .lastModifiedBy("HIX")
-        .lastModifiedDate(null)
-        .build();
+    emailDto = TestData.buildEmailDtoTestDataObject(null);
   }
 
   @Test
-  void givenEmail_when_Create_thenReturnSavedEmail() throws Exception {
+  void givenEmail_when_Create_thenReturn_HTTP_STATUS_201_And_SavedEmail() throws Exception {
     //given
     BDDMockito.given(emailService.saveEmail(any()))
         .willAnswer((invocation) -> invocation.getArgument(0));
@@ -84,7 +68,7 @@ class EmailControllerTest {
   }
 
   @Test
-  void givenEmail_when_Get_thenReturnEmail() throws Exception {
+  void givenEmail_when_Get_thenReturn_HTTP_STATUS_200_And_Fetched_Email() throws Exception {
     //given
     emailDto.setEmailId(1L);
     BDDMockito.given(emailService.fetchEmail(emailDto.getEmailId())).willReturn(emailDto);
@@ -105,7 +89,7 @@ class EmailControllerTest {
   }
 
   @Test
-  void when_GetAll_thenReturnEmails() throws Exception {
+  void when_GetAll_thenReturn_HTTP_STATUS_200_Emails() throws Exception {
     //given
     emailDto.setEmailId(1L);
     List<EmailDto> emailDtos = new ArrayList<EmailDto>();
@@ -127,7 +111,7 @@ class EmailControllerTest {
   }
 
   @Test
-  void givenEmail_when_Update_thenReturnUpdatedEmail() throws Exception {
+  void givenEmail_when_Update_thenReturn_HTTP_STATUS_200() throws Exception {
     //given
     emailDto.setEmailId(1L);
     emailDto.setEmailBody("Hello World");
@@ -163,7 +147,7 @@ class EmailControllerTest {
   }
 
   @Test
-  void givenEmails_whenCreateAll_thenReturnSavedEmail() throws Exception {
+  void givenEmails_whenCreateAll_thenReturn_HTTP_STATUS_201() throws Exception {
     //given
     emailDto.setEmailId(1L);
     List<EmailDto> emailDtos = new ArrayList<EmailDto>();
@@ -184,7 +168,7 @@ class EmailControllerTest {
   }
 
   @Test
-  void givenEmails_whenUpdateAll_thenReturnpdatedEmails() throws Exception {
+  void givenEmails_whenUpdateAll_thenReturn_HTTP_STATUS_200() throws Exception {
     //given
     emailDto.setEmailId(1L);
     List<EmailDto> emailDtos = new ArrayList<EmailDto>();

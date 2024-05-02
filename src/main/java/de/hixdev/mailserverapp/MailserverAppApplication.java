@@ -8,12 +8,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 // Due to Unit Test of EmailRepository, this class is not annotated with @EnableJpaAuditing(...)
 // instead it is annotated with @EnableJpaAuditing and use the default @Bean
 //@EnableJpaAuditing(auditorAwareRef = "msApiAuditImpl")
 @EnableJpaAuditing
 @SpringBootApplication
+@EnableScheduling
 public class MailserverAppApplication {
 
   private static final Logger LOG = LoggerFactory.getLogger(MailserverAppApplication.class);

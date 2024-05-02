@@ -1,11 +1,22 @@
 package de.hixdev.mailserverapp.service.impl;
 
+import static de.hixdev.mailserverapp.data.TestData.CREATED_BY_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.CREATED_DATE_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.MAIL_BODY_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.MAIL_CC_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.MAIL_FROM_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.MAIL_TO_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.MODIFIED_BY_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.MODIFIED_DATE_TEST_1;
+import static de.hixdev.mailserverapp.data.TestData.getEmailRecipientDtos;
+import static de.hixdev.mailserverapp.entity.State.EMAIL_DRAFT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import de.hixdev.mailserverapp.data.TestData;
 import de.hixdev.mailserverapp.dto.EmailDto;
 import de.hixdev.mailserverapp.dto.EmailRecipientDto;
 import de.hixdev.mailserverapp.entity.Email;
@@ -40,33 +51,31 @@ class EmailServiceImplTest {
   public void setup() {
     email = Email.builder()
         .emailId(1L)
-        .emailBody("Hello")
-        .emailFrom("hix@hixdev.de")
-        .emailTo("jack.river@hixdev.de")
-        .emailCc("eric.lars@hixdev.de")
-        .state("0")
-        .createdBy("HIX")
-        .createdDate(null)
-        .lastModifiedBy("HIX")
-        .lastModifiedDate(null)
+        .emailBody(MAIL_BODY_TEST_1)
+        .emailFrom(MAIL_FROM_TEST_1)
+        .emailTo(MAIL_TO_TEST_1)
+        .emailCc(MAIL_CC_TEST_1)
+        .state(EMAIL_DRAFT.getCode())
+        .createdBy(CREATED_BY_TEST_1)
+        .createdDate(CREATED_DATE_TEST_1)
+        .lastModifiedBy(MODIFIED_BY_TEST_1)
+        .lastModifiedDate(MODIFIED_DATE_TEST_1)
         .build();
 
-    List<EmailRecipientDto> emailsTo = new ArrayList<EmailRecipientDto>();
-    emailsTo.add(new EmailRecipientDto("jack.river@hixdev.de"));
-    List<EmailRecipientDto> emailsCc = new ArrayList<EmailRecipientDto>();
-    emailsTo.add(new EmailRecipientDto("eric.lars@hixdev.de"));
+    List<EmailRecipientDto> emailsTo = getEmailRecipientDtos(TestData.MAIL_TO_TEST_1);
+    List<EmailRecipientDto> emailsCc = getEmailRecipientDtos(TestData.MAIL_CC_TEST_1);
 
     emailDto = EmailDto.builder()
         .emailId(1L)
-        .emailBody("Hello")
-        .emailFrom("hix@hixdev.de")
+        .emailBody(MAIL_BODY_TEST_1)
+        .emailFrom(MAIL_FROM_TEST_1)
         .emailTo(emailsTo)
         .emailCc(emailsCc)
-        .state(State.EMAIL_DRAFT.getCode())
-        .createdBy("HIX")
-        .createdDate(null)
-        .lastModifiedBy("HIX")
-        .lastModifiedDate(null)
+        .state(EMAIL_DRAFT.getCode())
+        .createdBy(CREATED_BY_TEST_1)
+        .createdDate(CREATED_DATE_TEST_1)
+        .lastModifiedBy(MODIFIED_BY_TEST_1)
+        .lastModifiedDate(MODIFIED_DATE_TEST_1)
         .build();
   }
 
@@ -74,6 +83,7 @@ class EmailServiceImplTest {
   @Test
   void givenEmail_whenSaveEmail_thenReturnEmail() {
     // given
+    email.setEmailId(null);
     given(emailRepository.save(any())).willReturn(email);
 
     // when
@@ -132,8 +142,7 @@ class EmailServiceImplTest {
   void givenEmail_In_State_Draft_whenUpdateEmail_thenReturnUpdatedEmail() {
     // given
     email.setEmailBody("Changed Email Body");
-    given(emailRepository.findEmailByEmailId(email.getEmailId())).willReturn(
-        java.util.Optional.of(email));
+    given(emailRepository.findEmailByEmailId(email.getEmailId())).willReturn(java.util.Optional.of(email));
     given(emailRepository.save(any())).willReturn(email);
 
     // when
@@ -146,7 +155,7 @@ class EmailServiceImplTest {
 
   @DisplayName("Unit-Test for updateEmail for Email in State Draft with valid id")
   @Test
-  void givenEmail_In_State_Draft_With_Invalid_Id_whenUpdateEmail__thenShouldThrowResourceNotFoundException() {
+  void givenEmail_In_State_Draft_With_Invalid_Id_whenUpdateEmail_thenShouldThrowResourceNotFoundException() {
     // given
     email.setEmailBody("Changed Email Body");
     given(emailRepository.findEmailByEmailId(email.getEmailId())).willReturn(Optional.empty());

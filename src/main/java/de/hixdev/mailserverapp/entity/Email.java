@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,18 +37,22 @@ public class Email {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long emailId;
 
+  @NotNull
   @Column(name = "email_from", nullable = false)
   private String emailFrom;
 
+  @NotNull
   @Column(name = "email_to", nullable = false)
   private String emailTo;
 
   @Column(name = "email_cc", nullable = true)
   private String emailCc;
 
+  @NotNull
   @Column(name = "email_body", nullable = false)
   private String emailBody;
 
+  @NotNull
   @Column(name = "state", nullable = false)
   private String state;
 
