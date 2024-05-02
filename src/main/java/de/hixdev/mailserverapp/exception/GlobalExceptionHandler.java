@@ -68,4 +68,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     );
     return new ResponseEntity<>(errorResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
   }
+
+  @ExceptionHandler(EmailUpdateNotPossibleException.class)
+  public ResponseEntity<ErrorResponseDto> handleEmailUpdateNotPossibleException(
+      EmailUpdateNotPossibleException exception,
+      WebRequest webRequest){
+
+    LOG.error(Constants.LOG_MESSAGE, "handleEmailUpdateNotPossibleException of : " + exception.getMessage());
+
+    ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
+        webRequest.getDescription(false),
+        HttpStatus.BAD_REQUEST,
+        exception.getMessage(),
+        LocalDateTime.now()
+    );
+
+    return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
+  }
 }

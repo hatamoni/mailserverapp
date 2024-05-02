@@ -10,6 +10,7 @@ import de.hixdev.mailserverapp.dto.EmailDto;
 import de.hixdev.mailserverapp.dto.EmailRecipientDto;
 import de.hixdev.mailserverapp.entity.Email;
 import de.hixdev.mailserverapp.entity.State;
+import de.hixdev.mailserverapp.exception.EmailUpdateNotPossibleException;
 import de.hixdev.mailserverapp.exception.ResourceNotFoundException;
 import de.hixdev.mailserverapp.repository.EmailRepository;
 import java.util.ArrayList;
@@ -141,6 +142,35 @@ class EmailServiceImplTest {
     // then
     assertThat(expectedEmail).isNotNull();
     assertThat(expectedEmail.getEmailBody()).isEqualTo(email.getEmailBody());
+  }
+
+  @DisplayName("Unit-Test for updateEmail for Email in State Draft with valid id")
+  @Test
+  void givenEmail_In_State_Draft_With_Invalid_Id_whenUpdateEmail__thenShouldThrowResourceNotFoundException() {
+    // given
+    email.setEmailBody("Changed Email Body");
+    given(emailRepository.findEmailByEmailId(email.getEmailId())).willReturn(Optional.empty());
+
+    // when
+    org.junit.jupiter.api.Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+      emailService.updateEmail(emailDto);
+    });
+
+  }
+
+  @DisplayName("Unit-Test for updateEmail for Email in State SPam")
+  @Test
+  void givenEmail_In_State_Spam_whenUpdateEmail_thenShouldThrowhandleEmailUpdateNotPossibleException() {
+    // given
+    email.setEmailBody("Changed Email Body");
+    email.setState(State.EMAIL_SPAM.getCode());
+    emailDto.setState(State.EMAIL_SPAM.getCode());
+    given(emailRepository.findEmailByEmailId(email.getEmailId())).willReturn(java.util.Optional.of(email));
+
+    //when
+    org.junit.jupiter.api.Assertions.assertThrows(EmailUpdateNotPossibleException.class, () -> {
+      emailService.updateEmail(emailDto);
+    });
   }
 
   @DisplayName("Unit-Test for deleteEmail with vaild id")

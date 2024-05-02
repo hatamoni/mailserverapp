@@ -6,12 +6,13 @@ import static de.hixdev.mailserverapp.constants.Constants.EMAIL_ID;
 import de.hixdev.mailserverapp.constants.Constants;
 import de.hixdev.mailserverapp.dto.EmailDto;
 import de.hixdev.mailserverapp.entity.Email;
+import de.hixdev.mailserverapp.entity.State;
+import de.hixdev.mailserverapp.exception.EmailUpdateNotPossibleException;
 import de.hixdev.mailserverapp.exception.ResourceNotFoundException;
 import de.hixdev.mailserverapp.mapper.EmailMapper;
 import de.hixdev.mailserverapp.repository.EmailRepository;
 import de.hixdev.mailserverapp.service.EmailService;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +74,8 @@ public class EmailServiceImpl implements EmailService {
   public EmailDto updateEmail(EmailDto emailDto) {
     LOG.info(Constants.LOG_MESSAGE_START, "updateEmail", " Email-ID: " + emailDto.getEmailId());
 
+    validateIfEmailCanBeUpdated(emailDto);
+
     Email email = EmailMapper.mapToEmail(emailDto);
     Email savedEmail = emailRepository.save(email);
     EmailDto savedEmailDto = EmailMapper.mapToEmailDto(savedEmail);
@@ -80,6 +83,25 @@ public class EmailServiceImpl implements EmailService {
     LOG.info(Constants.LOG_MESSAGE_END, "updateEmail", "");
 
     return savedEmailDto;
+  }
+
+  private boolean validateIfEmailCanBeUpdated(EmailDto emailDto) {
+    LOG.info(Constants.LOG_MESSAGE_START, "validateIfEmailCanBeUpdated", " - Email-ID: " + emailDto.getEmailId());
+
+    if(emailDto.getEmailId() != null) {
+      Email email = emailRepository.findEmailByEmailId(emailDto.getEmailId()).orElseThrow(
+          () -> new ResourceNotFoundException("Email", "emailId", emailDto.getEmailId())
+      );
+      if (email.getState() != null
+          && email.getState().compareTo(State.EMAIL_DRAFT.getCode()) != 0) {
+        LOG.debug(Constants.LOG_MESSAGE, "Email can not be updated");
+        throw new EmailUpdateNotPossibleException("Email", emailDto.getEmailId(),"state", emailDto.getState());
+      }
+    }
+
+    LOG.info(Constants.LOG_MESSAGE_END, "validateIfEmailCanBeUpdated", "");
+
+    return true;
   }
 
   @Override
@@ -108,11 +130,11 @@ public class EmailServiceImpl implements EmailService {
     return emailDtoList;
   }
 
-
   @Override
   public List<EmailDto> updateAllEmails(List<EmailDto> emailsDto) {
     LOG.info(Constants.LOG_MESSAGE_START, "updateAllEmails", "");
 
+    emailsDto.stream().forEach(emailDto -> validateIfEmailCanBeUpdated(emailDto));
     final List<EmailDto> emailDtoList = emailRepository.saveAll(
             emailsDto.stream().map(EmailMapper::mapToEmail).toList())
         .stream().map(EmailMapper::mapToEmailDto).toList();
