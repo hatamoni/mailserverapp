@@ -31,8 +31,7 @@ public class SpamMarkerJob {
   private EmailRepository emailRepository;
 
   @Async
-  @Scheduled(cron = "${cron-spammarkerjob}")
-  @Scheduled
+  @Scheduled(cron = "0 10 * * * *" )
   public Future<Integer> recognizeSpamMailsAndMarkThemAsSpam()  {
     LOG.info(LOG_MESSAGE_START , "Starting SpamMarkerJob for recognizing spam E-Mails.", "");
 

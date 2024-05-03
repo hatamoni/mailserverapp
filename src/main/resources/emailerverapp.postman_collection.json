@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "011d0326-c77c-45b0-9c60-328b7fbe8293",
+		"name": "emailerverapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10095491"
+	},
+	"item": [
+		{
+			"name": "Create Email Success",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n      \"emailFrom\": \"hix@hixdev.de\",\n      \"emailTo\":  [ {\"email\": \"jack2.sparrow@hixdev.de\"} ,{\"email\":  \"kevin2.done@hixdev.de\"} ], \n      \"emailCc\":   [ {\"email\": \"done2.chane1@hixdev.de\"} ,{\"email\":  \"robbin2.hooke@hixdev.de\"} ],\n      \"emailBody\": \"Hi together, this is my message to you again 222\",\n      \"state\": \"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Emails Success",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"emails\": [\n        {\n            \"emailFrom\": \"utte.clars@hixdev.de\",\n            \"emailTo\":  [ {\"email\": \"jack4.sparrow@hixdev.de\"} ,{\"email\":  \"kevin4.done@hixdev.de\"} ], \n            \"emailCc\":   [ {\"email\": \"done4.chane@hixdev.de\"} ,{\"email\":  \"robbin4.hooke@hixdev.de\"} ],\n            \"emailBody\": \"Hi together, this is my message to you again 45678\",\n            \"state\": \"3\"\n        },\n        {\n            \"emailFrom\": \"jane.kliffs@hixdev.de\",\n            \"emailTo\":  [ {\"email\": \"jack8.sparrow@hixdev.de\"} ,{\"email\":  \"kevin8.done@hixdev.de\"} ], \n            \"emailCc\":   [ {\"email\": \"done8.chane@hixdev.de\"} ,{\"email\":  \"robbin8.hooke@hixdev.de\"} ],\n            \"emailBody\": \"Hi together, this is my message to you again\",\n            \"state\": \"3\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/createAll"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Emails Success",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"emails\": [\n        {\n            \"emailId\": 3,\n            \"emailFrom\": \"utte.clars@hixdev.de\",\n            \"emailTo\": [\n                {\n                    \"email\": \"jack4.sparrow@hixdev.de\"\n                },\n                {\n                    \"email\": \"kevin4.done@hixdev.de\"\n                }\n            ],\n            \"emailCc\": [\n                {\n                    \"email\": \"done4.chane@hixdev.de\"\n                },\n                {\n                    \"email\": \"robbin4.hooke@hixdev.de\"\n                }\n            ],\n            \"emailBody\": \"Hi together, this is my message to you again 45678 updated\",\n            \"state\": \"3\",\n            \"createdDate\": \"2024-04-28 22:20:20\",\n            \"createdBy\": \"MS_API_USER\",\n            \"lastModifiedDate\": \"2024-04-28 22:20:20\",\n            \"lastModifiedBy\": \"MS_API_USER\"\n        },\n        {\n            \"emailId\": 4,\n            \"emailFrom\": \"jane.kliffs@hixdev.de\",\n            \"emailTo\": [\n                {\n                    \"email\": \"jack8.sparrow@hixdev.de\"\n                },\n                {\n                    \"email\": \"kevin8.done@hixdev.de\"\n                }\n            ],\n            \"emailCc\": [\n                {\n                    \"email\": \"done8.chane@hixdev.de\"\n                },\n                {\n                    \"email\": \"robbin8.hooke@hixdev.de\"\n                }\n            ],\n            \"emailBody\": \"Hi together, this is my message to you again updated too\",\n            \"state\": \"3\",\n            \"createdDate\": \"2024-04-28 22:20:20\",\n            \"createdBy\": \"MS_API_USER\",\n            \"lastModifiedDate\": \"2024-04-28 22:20:20\",\n            \"lastModifiedBy\": \"MS_API_USER\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/deleteAll"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Email Success",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n        {\n            \"emailId\": 7,\n            \"emailFrom\": \"utte.clars@hixdev.de\",\n            \"emailTo\": [\n                {\n                    \"email\": \"jack4.sparrow@hixdev.de\"\n                },\n                {\n                    \"email\": \"kevin4.done@hixdev.de\"\n                }\n            ],\n            \"emailCc\": [\n                {\n                    \"email\": \"done4.chane@hixdev.de\"\n                },\n                {\n                    \"email\": \"robbin4.hooke@hixdev.de\"\n                }\n            ],\n            \"emailBody\": \"Hi together, this is my message to you again 45678 updated\",\n            \"state\": \"3\",\n            \"createdDate\": \"2024-04-28 22:20:20\",\n            \"createdBy\": \"MS_API_USER\",\n            \"lastModifiedDate\": \"2024-04-28 22:20:20\",\n            \"lastModifiedBy\": \"MS_API_USER\"\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/delete/7"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Email Error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"emailFrom\": \"\",\n      \"emailTo\":  [ {\"email\": \"jack.sparrowhixdev.de\"} ,{\"email\":  \"kevin.done@hixdev.de\"} ], \n      \"emailCc\":   [ {\"email\": \"done.chanehixdev.de\"} ,{\"email\":  \"robbin.hooke@hixdev.de\"} ],\n      \"emailBody\": \"Hi together, this is my message to you again\",\n      \"state\": \"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Email Success",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n      \"emailId\": \"1\",\n      \"emailFrom\": \"max.hans@hixdev.de\",\n      \"emailTo\":  [ {\"email\": \"jack.sparrow@hixdev.de\"} ,{\"email\":  \"kevin.done@hixdev.de\"} ], \n      \"emailCC\":   [ {\"email\": \"done.chane@hixdev.de\"} ,{\"email\":  \"robbin.hooke@hixdev.de\"} ],\n      \"emailBody\": \"Hi together, this is my message to you\",\n      \"state\": \"0\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/update"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Email Error",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n      \"emailId\": \"1\",\n      \"emailFrom\": \"max.hans@hixdev.de\",\n      \"emailTo\":  [ {\"email\": \"jack.sparrow@hixdev.de\"} ,{\"email\":  \"kevin.done@hixdev.de\"} ], \n      \"emailCC\":   [ {\"email\": \"done.chane@hixdev.de\"} ,{\"email\":  \"robbin.hooke@hixdev.de\"} ],\n      \"emailBody\": \"Hi together, this is my message to you\",\n      \"state\": \"2\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/update"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Emails Success",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"emails\": [\n        {\n        \"emailId\": 1,\n        \"emailFrom\": \"hix@hixdev.de\",\n        \"emailTo\": [\n            {\n                \"email\": \"jack1.sparrow@hixdev.de\"\n            },\n            {\n                \"email\": \"kevin1.done@hixdev.de\"\n            }\n        ],\n        \"emailCc\": [\n            {\n                \"email\": \"done1.chane1@hixdev.de\"\n            },\n            {\n                \"email\": \"robbin1.hooke@hixdev.de\"\n            }\n        ],\n        \"emailBody\": \"Hi together, this is my message to you again changed state\",\n        \"state\": \"0\",\n        \"createdDate\": \"2024-04-28 17:30:55\",\n        \"createdBy\": \"MS_API_AUDIT_USER\",\n        \"lastModifiedDate\": \"2024-04-28 17:30:55\",\n        \"lastModifiedBy\": \"MS_API_AUDIT_USER\"\n    },\n    {\n        \"emailId\": 2,\n        \"emailFrom\": \"hix@hixdev.de\",\n        \"emailTo\": [\n            {\n                \"email\": \"jack2.sparrow@hixdev.de\"\n            },\n            {\n                \"email\": \"kevin2.done@hixdev.de\"\n            }\n        ],\n        \"emailCc\": [\n            {\n                \"email\": \"done2.chane1@hixdev.de\"\n            },\n            {\n                \"email\": \"robbin2.hooke@hixdev.de\"\n            }\n        ],\n        \"emailBody\": \"Hi together, this is my message to you again changed state\",\n        \"state\": \"0\",\n        \"createdDate\": \"2024-04-28 17:35:57\",\n        \"createdBy\": \"MS_API_AUDIT_USER\",\n        \"lastModifiedDate\": \"2024-04-28 17:35:57\",\n        \"lastModifiedBy\": \"MS_API_AUDIT_USER\"\n    }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/updateAll"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Emails Error",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"emails\": [\n        {\n            \"emailId\": 7,\n            \"emailFrom\": \"utte.clars@hixdev.de\",\n            \"emailTo\": [\n                {\n                    \"email\": \"jack4.sparrow@hixdev.de\"\n                },\n                {\n                    \"email\": \"kevin4.done@hixdev.de\"\n                }\n            ],\n            \"emailCc\": [\n                {\n                    \"email\": \"done4.chane@hixdev.de\"\n                },\n                {\n                    \"email\": \"robbin4.hooke@hixdev.de\"\n                }\n            ],\n            \"emailBody\": \"Hi together, this is my message to you again 45678 updated\",\n            \"state\": \"3\",\n            \"createdDate\": \"2024-04-28 22:20:20\",\n            \"createdBy\": \"MS_API_USER\",\n            \"lastModifiedDate\": \"2024-04-28 22:20:20\",\n            \"lastModifiedBy\": \"MS_API_USER\"\n        },\n        {\n            \"emailId\": 8,\n            \"emailFrom\": \"jane.kliffs@hixdev.de\",\n            \"emailTo\": [\n                {\n                    \"email\": \"jack8.sparrow@hixdev.de\"\n                },\n                {\n                    \"email\": \"kevin8.done@hixdev.de\"\n                }\n            ],\n            \"emailCc\": [\n                {\n                    \"email\": \"done8.chane@hixdev.de\"\n                },\n                {\n                    \"email\": \"robbin8.hooke@hixdev.de\"\n                }\n            ],\n            \"emailBody\": \"Hi together, this is my message to you again updated too\",\n            \"state\": \"3\",\n            \"createdDate\": \"2024-04-28 22:20:20\",\n            \"createdBy\": \"MS_API_USER\",\n            \"lastModifiedDate\": \"2024-04-28 22:20:20\",\n            \"lastModifiedBy\": \"MS_API_USER\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/updateAll"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Email Success",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"hix\",\n    \"lastName\": \"dev\",\n    \"email\": \"hix@hixdev.de\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/get/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Email Error",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"hix\",\n    \"lastName\": \"dev\",\n    \"email\": \"hix@hixdev.de\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/get/122"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Emails",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"hix\",\n    \"lastName\": \"dev\",\n    \"email\": \"hix@hixdev.de\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/getAll"
+			},
+			"response": []
+		}
+	]
+}

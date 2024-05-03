@@ -14,8 +14,15 @@ import static de.hixdev.mailserverapp.constants.Constants.PATHVARIABLE_EMAIL_ID;
 import de.hixdev.mailserverapp.constants.Constants;
 import de.hixdev.mailserverapp.dto.EmailDto;
 import de.hixdev.mailserverapp.dto.EmailsDto;
+import de.hixdev.mailserverapp.dto.ErrorResponseDto;
 import de.hixdev.mailserverapp.dto.ResponseDto;
 import de.hixdev.mailserverapp.service.EmailService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -33,6 +40,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(
+    name = "REST APIs to execute CRUD operations for Email Resource",
+    description = "CRUD REST APIs - Create Email, Update Email (Send or Save Draft) , Get Email, Get All Emails, Delete Email"
+)
 
 @RestController
 @RequestMapping(path = Constants.API_REQUESTMAPPING_PATH)
@@ -44,6 +55,27 @@ public class EmailController {
 
   private EmailService emailService;
 
+  @Operation(
+      summary = "Create an Email",
+      description = "REST API to create a new Email"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "201",
+          description = "HTTP Status-Code for CREATED",
+          content = @Content(
+              schema = @Schema(implementation = EmailDto.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status-Code for Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @PostMapping(API_PATH_CREATE)
   public ResponseEntity<EmailDto> saveEmail(@Valid @RequestBody EmailDto emailDto) {
     LOG.info(Constants.LOG_MESSAGE_START, "saveEmail", API_PATH_CREATE);
@@ -56,6 +88,24 @@ public class EmailController {
     return emailDtoResponseEntity;
   }
 
+  @Operation(
+      summary = "Get an Email with a given email-id",
+      description = "REST API to fetch an Email with a given email-id"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "HTTP Status-Code for OK"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status-Code for Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @GetMapping(API_PATH_GET + "/" + PATHVARIABLE_EMAIL_ID)
   public ResponseEntity<EmailDto> getEmail(@PathVariable(EMAIL_ID) Long emailId) {
     LOG.info(Constants.LOG_MESSAGE_START, "fetchEmail", API_PATH_GET);
@@ -69,6 +119,24 @@ public class EmailController {
     return emailDtoResponseEntity;
   }
 
+  @Operation(
+      summary = "Fetch all Emails",
+      description = "REST API to fetch all Emails"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "HTTP Status-Code for OK"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status-Code for Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @GetMapping(API_PATH_GET_ALL)
   public ResponseEntity<EmailsDto> getEmails() {
     LOG.info(Constants.LOG_MESSAGE_END, "getEmails", API_PATH_GET_ALL);
@@ -81,6 +149,24 @@ public class EmailController {
     return emailsDtoResponseEntity;
   }
 
+  @Operation(
+      summary = "Update an Email",
+      description = "REST API to update a new Email"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "HTTP Status-Code for CREATED"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status-Code for Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @PutMapping(API_PATH_UPDATE)
   public ResponseEntity<ResponseDto> updateEmail(@Valid @RequestBody EmailDto emailDto) {
     LOG.info(Constants.LOG_MESSAGE_START, "updateEmail", API_PATH_UPDATE);
@@ -100,6 +186,28 @@ public class EmailController {
     }
   }
 
+  @Operation(
+      summary = "Delete an Email with a given email-id",
+      description = "REST API to delete an Email with the given email-id"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "HTTP Status OK"
+      ),
+      @ApiResponse(
+          responseCode = "417",
+          description = "Expectation Failed"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @DeleteMapping(API_PATH_DELETE + "/" + PATHVARIABLE_EMAIL_ID)
   public ResponseEntity<ResponseDto> deleteEmail(@PathVariable(EMAIL_ID) Long emailId) {
     LOG.info(Constants.LOG_MESSAGE_START, "deleteEmail", API_PATH_DELETE);
@@ -120,6 +228,24 @@ public class EmailController {
     }
   }
 
+  @Operation(
+      summary = "Create a list of Emails",
+      description = "REST API to create Emails"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "201",
+          description = "HTTP Status-Code for CREATED"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status-Code for Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @PostMapping(API_PATH_CREATE_ALL)
   public ResponseEntity<EmailsDto> saveEmails(@Valid @RequestBody EmailsDto emailsDto) {
     LOG.info(Constants.LOG_MESSAGE_START, "saveEmails", API_PATH_CREATE_ALL);
@@ -133,6 +259,24 @@ public class EmailController {
     return emailsDtoResponseEntity;
   }
 
+  @Operation(
+      summary = "Bulk-Update for Emails",
+      description = "REST API to update a list of Emails"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "HTTP Status-Code for CREATED"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status-Code for Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @PutMapping(API_PATH_UPDATE_ALL)
   public ResponseEntity<ResponseDto> updateEmails(@Valid @RequestBody EmailsDto emailsDto) {
     LOG.info(Constants.LOG_MESSAGE_START, "updateEmails", API_PATH_UPDATE_ALL);
@@ -153,6 +297,24 @@ public class EmailController {
     }
   }
 
+  @Operation(
+      summary = "Bulk-Delete for Emails",
+      description = "REST API to delete a list of Emails"
+  )
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "201",
+          description = "HTTP Status-Code for CREATED"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "HTTP Status-Code for Internal Server Error",
+          content = @Content(
+              schema = @Schema(implementation = ErrorResponseDto.class)
+          )
+      )
+  }
+  )
   @DeleteMapping(API_PATH_DELETE_ALL)
   public ResponseEntity<ResponseDto> deleteEmails(@Valid @RequestBody EmailsDto emailsDto) {
     LOG.info(Constants.LOG_MESSAGE_START, "deleteEmails", API_PATH_UPDATE_ALL);
