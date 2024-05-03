@@ -2,8 +2,8 @@
 This is a sample Spring Boot application with MySQL database configuration.
 
 ## Technologies Used
-- Spring Boot
-- MySQL Database
+- Spring Boot (version 3.2.5)
+- MySQL Database (8.0.19)
 
 ## Prerequisites
 - [Java](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
@@ -61,7 +61,7 @@ spring.datasource.password=ms#api#123
 4. Build and run the application
 ```
 mvn clean install
-java -jar target/mailserverapp-0.0.1-SNAPSHOT.jar
+java -jar target/mailserverapp-1.0.0.jar
 ```
 
 ## Usage
