@@ -20,6 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EmailsDto {
 
+  //BugFix of bulk email sending
   @Valid
   private List<EmailDto> emails;
 
