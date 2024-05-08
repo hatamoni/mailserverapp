@@ -1,23 +1,15 @@
-# Drop and Create Database and Tables
-# drop database emailserver;
-# drop table email;
-
-# Create database and tables
-# create database emailserver;
-
 # Create schema and tables
-CREATE SCHEMA `emailserver` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+CREATE DATABASE emailserver;
 
-CREATE USER 'msapi'@'localhost' IDENTIFIED BY 'ms#api#123';
-GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE, SHOW VIEW, CREATE, ALTER, REFERENCES, INDEX, CREATE VIEW, CREATE ROUTINE,
-	ALTER ROUTINE, EVENT, DROP, TRIGGER ON `emailserver`.* TO 'msapi'@'localhost';
+CREATE USER 'msapi'@'%' IDENTIFIED BY 'msapi123';
+GRANT ALL PRIVILEGES ON emailserver.* TO 'msapi'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 use emailserver;
 
 # Create email table
 
-create table if not exists emailserver.email
+create table if not exists email
 (
     email_id           bigint auto_increment
         primary key,
