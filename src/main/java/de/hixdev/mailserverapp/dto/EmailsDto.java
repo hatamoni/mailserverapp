@@ -1,6 +1,7 @@
 package de.hixdev.mailserverapp.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EmailsDto {
 
+  @Valid
   private List<EmailDto> emails;
 
 }
