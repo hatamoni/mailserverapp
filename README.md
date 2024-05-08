@@ -6,7 +6,7 @@ This is a sample Spring Boot application with MySQL database configuration.
 - MySQL Database (8.0.19)
 
 ## Prerequisites
-- [Java](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+- [Java 17](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
 - [Maven](https://maven.apache.org/download.cgi)
 - [MySQL](https://dev.mysql.com/downloads/mysql/)
 
