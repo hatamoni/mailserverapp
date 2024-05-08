@@ -43,6 +43,24 @@
 			"response": []
 		},
 		{
+			"name": "Create Emails Error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"emails\": [\n        {\n            \"emailFrom\": \"utte.clars@hixdev.de\",\n            \"emailTo\":  [ {\"email\": \"jack4.sparrow@hixdev.de\"} ,{\"email\":  \"kevin4.done@hixdev.de\"} ], \n            \"emailCc\":   [ {\"email\": \"done4.chane@hixdev.de\"} ,{\"email\":  \"robbin4.hooke@hixdev.de\"} ],\n            \"emailBody\": \"Hi together, this is my message to you again 45678\",\n            \"state\": \"3\"\n        },\n        {\n            \"emailFrom\": \"jane.kliffs@hixdev.de\",\n            \"emailTo\":  [ {\"email\": \"jack8.sparrow@hixdev.de\"} ,{\"email\":  \"kevin8.done@hixdev.de\"} ], \n            \"emailCc\":   [ {\"email\": \"done8.chane@hixdev.de\"} ,{\"email\":  \"robbin8.hooke@hixdev.de\"} ],\n            \"emailBody\": \"Hi together, this is my message to you again\",\n            \"state\": \"3\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8484/api/v1/emails/createAll"
+			},
+			"response": []
+		},
+		{
 			"name": "Delete Emails Success",
 			"request": {
 				"method": "DELETE",
